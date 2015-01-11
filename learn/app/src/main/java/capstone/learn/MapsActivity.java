@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -149,7 +150,7 @@ public class MapsActivity extends FragmentActivity {
 
     private void showMyLocation(){
 
-     //   myLocationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, myLocationListener);
+        myLocationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, myLocationListener);
         Location location = myLocationManager.getLastKnownLocation(PROVIDER);
 
         if(location == null){
@@ -164,12 +165,12 @@ public class MapsActivity extends FragmentActivity {
     }
 
     private LocationListener myLocationListener
-            = new LocationListener(){
+            = new LocationListener() {
 
         @Override
         public void onLocationChanged(Location location) {
 
-         //   showMyLocation();
+            //   showMyLocation();
 
         }
 
@@ -183,7 +184,7 @@ public class MapsActivity extends FragmentActivity {
         public void onProviderEnabled(String provider) {
             // TODO Auto-generated method stub
             Toast.makeText(getBaseContext(), "Gps turned on ", Toast.LENGTH_LONG).show();
-         //   showMyLocation();
+            //   showMyLocation();
 
         }
 
@@ -192,5 +193,15 @@ public class MapsActivity extends FragmentActivity {
             // TODO Auto-generated method stub
             //myLocationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, myLocationListener);
 
-        }};
+        }
+    };
+
+        protected void createLocationRequest() {
+            LocationRequest mLocationRequest = new LocationRequest();
+            mLocationRequest.setInterval(10000);
+            mLocationRequest.setFastestInterval(5000);
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        }
+
+
 }
